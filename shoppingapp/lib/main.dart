@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:shoppingapp/modules/on_boarding/on_boarding.dart';
-import 'package:shoppingapp/shared/components/constants.dart';
 import 'package:shoppingapp/shared/cubit/bloc_observer.dart';
 import 'package:shoppingapp/shared/cubit/cubit.dart';
 import 'package:shoppingapp/shared/cubit/states.dart';
 import 'package:shoppingapp/shared/styles/themes/themes.dart';
-import 'layout/home_page_layout.dart';
 
 void main() {
   // WidgetsFlutterBinding.ensureInitialized(); // this for waiting until what before runapp is going

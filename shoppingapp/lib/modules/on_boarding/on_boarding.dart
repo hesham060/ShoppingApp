@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shoppingapp/modules/login_page/login.dart';
+import 'package:shoppingapp/shared/components/component.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class boardingModel {
   final String? image;
@@ -8,17 +11,34 @@ class boardingModel {
       {@required this.image, @required this.body, @required this.title});
 }
 
-class OnBoardingScreen extends StatelessWidget {
+class OnBoardingScreen extends StatefulWidget {
+  @override
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
+}
+
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
   var boardController = PageController();
+
   List<boardingModel> Boarding = [
     boardingModel(image: 'assets/pics/on_boarding-1.jpg'),
     boardingModel(title: 'On Boarding Title'),
     boardingModel(body: 'on boarding text '),
   ];
+  bool isLast = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          actions: [
+            TextButton(
+              onPressed: () {
+                  navigateAndFinish(context, LoginScreen());
+              },
+              child: Text('Skip',style: TextStyle(color: Colors.white)),
+            )
+          ],
+        ),
         body: Padding(
           padding: const EdgeInsets.all(25.0),
           child: Center(
@@ -26,7 +46,20 @@ class OnBoardingScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: PageView.builder(
-                  physics:BouncingScrollPhysics(),
+                  onPageChanged: (int index) {
+                    if (index == Boarding.length - 1) {
+                      setState(() {
+                        isLast = true;
+                      });
+                      print('last');
+                    } else {
+                      setState(() {
+                        isLast = false;
+                      });
+                      print('isnotlast');
+                    }
+                  },
+                  physics: BouncingScrollPhysics(),
                   controller: boardController,
                   itemBuilder: (context, index) =>
                       buildOnBoardingItem(Boarding[index]),
@@ -38,18 +71,30 @@ class OnBoardingScreen extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Text(
-                    'Indicator',
-                    style: TextStyle(fontSize: 25),
+                  SmoothPageIndicator(
+                    controller: boardController,
+                    count: Boarding.length,
+                    effect: const ExpandingDotsEffect(
+                      dotColor: Colors.grey,
+                      dotWidth: 10,
+                      dotHeight: 10,
+                      expansionFactor: 4,
+                      spacing: 5.0,
+                      activeDotColor: Color(0xff33d9b2),
+                    ),
                   ),
-                  Spacer(), // widget used for throw element to the end which app have space
+                  const Spacer(), // widget used for throw element to the end which app have space
                   FloatingActionButton(
                     onPressed: () {
-                      boardController.nextPage(
-                          duration: Duration(milliseconds: 750),
-                          curve: Curves.fastLinearToSlowEaseIn);
+                      if (isLast) {
+                        navigateAndFinish(context, LoginScreen());
+                      } else {
+                        boardController.nextPage(
+                            duration: const Duration(milliseconds: 750),
+                            curve: Curves.fastLinearToSlowEaseIn);
+                      }
                     },
-                    child: Icon(Icons.arrow_forward_ios),
+                    child: const Icon(Icons.arrow_forward_ios),
                   )
                 ],
               )
