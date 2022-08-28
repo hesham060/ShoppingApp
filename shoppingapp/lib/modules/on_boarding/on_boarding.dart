@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shoppingapp/modules/login_page/login.dart';
 import 'package:shoppingapp/shared/components/component.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../login/login_Screen.dart';
 
 class boardingModel {
   final String? image;
@@ -31,12 +31,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(
         appBar: AppBar(
           actions: [
-            TextButton(
-              onPressed: () {
-                  navigateAndFinish(context, LoginScreen());
-              },
-              child: Text('Skip',style: TextStyle(color: Colors.white)),
-            )
+            defaultText(Function: (){
+               navigateAndFinish(context, LoginScreen());
+            }, text: 'Skip'),
           ],
         ),
         body: Padding(
@@ -108,8 +105,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Container(
-              child: Image.asset('lib/assets/pics/onboard-1.jpg'),
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Container(
+                child: Image.asset('lib/assets/pics/onboard-1.jpg'),
+              ),
             ),
           ),
           Text(

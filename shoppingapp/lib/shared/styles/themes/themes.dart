@@ -23,15 +23,18 @@ ThemeData darkTheme = ThemeData(
 ThemeData lightTheme = ThemeData(
   appBarTheme: AppBarTheme(
     systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor:HexColor('#33d9b2'),
-        statusBarIconBrightness: Brightness.light),
-    backgroundColor: color,
+        statusBarColor:Colors.white,
+        statusBarIconBrightness: Brightness.dark),
+    backgroundColor: Colors.white,
+    elevation: 0
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     selectedItemColor: HexColor('#33d9b2'),
     elevation: 20,
+    
   ),
   fontFamily: 'jannah',
   floatingActionButtonTheme:
       FloatingActionButtonThemeData(backgroundColor: HexColor('#33d9b2')),
+  
 );
